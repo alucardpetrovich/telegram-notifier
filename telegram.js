@@ -7,12 +7,12 @@ const child = require("child_process");
 const lastChecked = new Date("2024-02-17T00:00:00+02:00");
 
 let apiId;
-let apiHash;
+let apiHash = "";
 let stringSession; // fill this later with the value from session.save()
 
 (async () => {
   if (!apiId) {
-    apiId = await input.text("Please enter your api id: ");
+    apiId = parseInt(await input.text("Please enter your api id: "));
   }
   if (!apiHash) {
     apiHash = await input.text("Please enter your api hash: ");
@@ -56,11 +56,13 @@ let stringSession; // fill this later with the value from session.save()
   //   archived: d.archived,
   // }));
 
+  console.log(dialogsFormatted);
+
   const test = await client.getMessages("mighty_infant", { limit: 100 });
-  const hasNewMessages = test.some(
-    (t) => t.date * 1000 - lastChecked.getTime() > 0
-  );
-  if (hasNewMessages) {
-    child.execSync("C:\\Users\\Documents\\alert.mp3");
-  }
+  // const hasNewMessages = test.some(
+  //   (t) => t.date * 1000 - lastChecked.getTime() > 0
+  // );
+  // if (hasNewMessages) {
+  //   child.execSync("C:\\Users\\Documents\\alert.mp3");
+  // }
 })();
